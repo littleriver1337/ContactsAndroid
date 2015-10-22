@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listView = (ListView) findViewById(R.id.listView);
 
         enterButton.setOnClickListener(this);
+        listView.setOnItemLongClickListener(this);
 
         items = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
         listView.setAdapter(items);
@@ -38,15 +39,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         String text = addName.getText().toString();
         String phone = addPhone.getText().toString();
-        items.add(String.format("%s %s", text, phone));
+        items.add(String.format("%s (%s)", text, phone));
         addName.setText("");
 
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        String itemToRemove = items.getItem(position);
-        items.remove(itemToRemove);
+        items.remove(items.getItem(position));
         return true;
     }
 }
